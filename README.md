@@ -18,5 +18,5 @@ This project is configured to use CMake. In order to build this project you'll n
 
 The authors of this simple game are:
 
-Raydelto Hernandez (raydelto@yahoo.com)
-Leo Javier
+* Raydelto Hernandez (raydelto@yahoo.com)
+* Leo Javier
