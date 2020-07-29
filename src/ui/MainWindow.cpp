@@ -20,6 +20,4 @@ void MainWindow::ShowMessage(QString title, QString body)
     msgBox.exec();
 }
 
-MainWindow::~MainWindow()
-{
-}
+MainWindow::~MainWindow() = default;
