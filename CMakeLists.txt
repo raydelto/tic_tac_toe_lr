@@ -18,8 +18,11 @@ fix_project_version()
 
 
 set(SOURCE_FILES
-    src/ui/MainWindow.cpp
-    src/main.cpp
+        src/glwidget.cpp
+        src/logo.cpp
+        src/mainwindow.cpp
+        src/window.cpp
+        src/main.cpp
 )
 
 add_project_meta(META_FILES_TO_INCLUDE)
