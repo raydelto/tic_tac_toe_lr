@@ -8,6 +8,4 @@ Q_OBJECT
 public:
     MainWindow();
 
-private slots:
-    void onAddNew();
 };

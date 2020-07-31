@@ -19,7 +19,6 @@ fix_project_version()
 
 set(SOURCE_FILES
         src/glwidget.cpp
-        src/logo.cpp
         src/mainwindow.cpp
         src/window.cpp
         src/main.cpp
