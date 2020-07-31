@@ -16,22 +16,11 @@ public:
     GLWidget(QWidget *parent = 0);
     ~GLWidget();
 
-    static bool isTransparent() { return m_transparent; }
-    static void setTransparent(bool t) { m_transparent = t; }
-
     QSize minimumSizeHint() const override;
     QSize sizeHint() const override;
 
 public slots:
-    void setXRotation(int angle);
-    void setYRotation(int angle);
-    void setZRotation(int angle);
     void cleanup();
-
-signals:
-    void xRotationChanged(int angle);
-    void yRotationChanged(int angle);
-    void zRotationChanged(int angle);
 
 protected:
     void initializeGL() override;
@@ -42,22 +31,10 @@ protected:
 
 private:
     void setupVertexAttribs();
-
-    bool m_core;
-    int m_xRot;
-    int m_yRot;
-    int m_zRot;
-    QPoint m_lastPos;
-    Logo m_logo;
+    QVector<GLfloat> m_vertices;
     QOpenGLVertexArrayObject m_vao;
-    QOpenGLBuffer m_logoVbo;
+    QOpenGLBuffer m_vbo;
     QOpenGLShaderProgram *m_program;
-    int m_projMatrixLoc;
-    int m_mvMatrixLoc;
-    int m_normalMatrixLoc;
-    int m_lightPosLoc;
+    GLuint m_projMatrixLoc;
     QMatrix4x4 m_proj;
-    QMatrix4x4 m_camera;
-    QMatrix4x4 m_world;
-    static bool m_transparent;
 };
