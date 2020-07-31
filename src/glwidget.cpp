@@ -44,7 +44,7 @@ static const char *vertexShaderSourceCore =
         "uniform mat4 projMatrix;\n"
         "void main() {\n"
         "   vertexColor = aColor;\n"
-        "   gl_Position = vec4(aPos,1);\n"
+        "   gl_Position = projMatrix * vec4(aPos,1);\n"
         "}\n";
 
 static const char *fragmentShaderSourceCore =
@@ -77,9 +77,9 @@ void GLWidget::initializeGL()
     // Setup our vertex buffer object.
     m_vbo.create();
     m_vbo.bind();
-    m_vertices << -0.5f  << -0.5f << 0.0f << 1.0f << 0.0f << 0.0f;  //left
-    m_vertices <<  0.5f  << -0.5f << 0.0f << 0.0f << 1.0f << 0.0f;  //right
-    m_vertices <<  0.0f  <<  0.5f << 0.0f << 0.0f << 0.0f << 1.0f;  //top
+    m_vertices << 100.0f  << 100.0f << 0.0f << 1.0f << 0.0f << 0.0f;  //left
+    m_vertices <<  300.0f  << 100.0f << 0.0f << 0.0f << 1.0f << 0.0f;  //right
+    m_vertices <<  150.0f  <<  300.0f << 0.0f << 0.0f << 0.0f << 1.0f;  //top
 
 
     m_vbo.allocate(m_vertices.constData(), m_vertices.count() * sizeof(GLfloat));
@@ -115,7 +115,7 @@ void GLWidget::paintGL()
 void GLWidget::resizeGL(int w, int h)
 {
     m_proj.setToIdentity();
-    m_proj.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
+    m_proj.ortho(0.0f, GLfloat(w), 0.0f, h, 0.00f, 1.0f);
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
