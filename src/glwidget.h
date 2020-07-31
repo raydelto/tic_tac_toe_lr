@@ -35,5 +35,7 @@ private:
     QOpenGLBuffer m_vbo;
     QOpenGLShaderProgram *m_program;
     GLuint m_projMatrixLoc;
+    GLuint m_modelMatrixLoc;
     QMatrix4x4 m_proj;
+    QMatrix4x4 m_model;
 };

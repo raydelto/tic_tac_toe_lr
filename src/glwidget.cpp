@@ -42,9 +42,10 @@ static const char *vertexShaderSourceCore =
         "layout (location = 1) in vec3 aColor;\n"
         "out vec3 vertexColor;\n"
         "uniform mat4 projMatrix;\n"
+        "uniform mat4 modelMatrix;\n"
         "void main() {\n"
         "   vertexColor = aColor;\n"
-        "   gl_Position = projMatrix * vec4(aPos,1);\n"
+        "   gl_Position = projMatrix * modelMatrix * vec4(aPos,1);\n"
         "}\n";
 
 static const char *fragmentShaderSourceCore =
@@ -69,6 +70,7 @@ void GLWidget::initializeGL()
 
     m_program->bind();
     m_projMatrixLoc = m_program->uniformLocation("projMatrix");
+    m_modelMatrixLoc = m_program->uniformLocation("modelMatrix");
 
     // Create a vertex array object.
     m_vao.create();
@@ -77,9 +79,9 @@ void GLWidget::initializeGL()
     // Setup our vertex buffer object.
     m_vbo.create();
     m_vbo.bind();
-    m_vertices << 100.0f  << 100.0f << 0.0f << 1.0f << 0.0f << 0.0f;  //left
+    m_vertices <<  100.0f  << 100.0f << 0.0f << 1.0f << 0.0f << 0.0f;  //left
     m_vertices <<  300.0f  << 100.0f << 0.0f << 0.0f << 1.0f << 0.0f;  //right
-    m_vertices <<  150.0f  <<  300.0f << 0.0f << 0.0f << 0.0f << 1.0f;  //top
+    m_vertices <<  100.0f  <<  300.0f << 0.0f << 0.0f << 0.0f << 1.0f;  //top
 
 
     m_vbo.allocate(m_vertices.constData(), m_vertices.count() * sizeof(GLfloat));
@@ -107,6 +109,7 @@ void GLWidget::paintGL()
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
+    m_program->setUniformValue(m_modelMatrixLoc, m_model);
     glDrawArrays(GL_TRIANGLES, 0, m_vertices.count());
 
     m_program->release();
@@ -115,7 +118,12 @@ void GLWidget::paintGL()
 void GLWidget::resizeGL(int w, int h)
 {
     m_proj.setToIdentity();
-    m_proj.ortho(0.0f, GLfloat(w), 0.0f, h, 0.00f, 1.0f);
+//  This commented ortho would maintain aspect ratio.  It's commented out since it has an unwanted behaviour when resizing the window.
+//    m_proj.ortho(0.0f, GLfloat(w), 0.0f, h, 0.00f, 1.0f);
+    m_proj.ortho(0.0f, 400.0f, 0.0f, 400.0f, 0.00f, 1.0f);
+    m_model.setToIdentity();
+//    The model matrix is used for moving and rotating our models around the screen.  We're currently not using it, I just left it here in case we need this later.
+//    m_model.translate(GLfloat(w) /2,h/2);
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
