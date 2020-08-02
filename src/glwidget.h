@@ -30,15 +30,8 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
-    void setupVertexAttribs();
-    QVector<GLfloat> m_vertices;
-    QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
     QOpenGLShaderProgram *m_program;
-    GLuint m_projMatrixLoc;
-    GLuint m_modelMatrixLoc;
     QMatrix4x4 m_proj;
-    QMatrix4x4 m_model;
-    uint32_t m_numVertices;
     PlayerX* m_playerX;
 };
