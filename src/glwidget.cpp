@@ -8,6 +8,7 @@ GLWidget::GLWidget(QWidget *parent)
         : QOpenGLWidget(parent),
           m_program(0)
 {
+    m_playerX = new PlayerX();
 }
 
 GLWidget::~GLWidget()
@@ -32,7 +33,9 @@ void GLWidget::cleanup()
     makeCurrent();
     m_vbo.destroy();
     delete m_program;
-    m_program = 0;
+    m_program = nullptr;
+    delete m_playerX;
+    m_playerX = nullptr;
     doneCurrent();
 }
 
@@ -89,6 +92,7 @@ void GLWidget::initializeGL()
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
     m_program->release();
+    m_playerX->initialize();
 }
 
 void GLWidget::setupVertexAttribs()
@@ -105,14 +109,8 @@ void GLWidget::setupVertexAttribs()
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT);
+    m_playerX->draw();
 
-    QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
-    m_program->bind();
-    m_program->setUniformValue(m_projMatrixLoc, m_proj);
-    m_program->setUniformValue(m_modelMatrixLoc, m_model);
-    glDrawArrays(GL_TRIANGLES, 0, m_numVertices);
-
-    m_program->release();
 }
 
 void GLWidget::resizeGL(int w, int h)
@@ -121,6 +119,7 @@ void GLWidget::resizeGL(int w, int h)
 //  This commented ortho would maintain aspect ratio.  It's commented out since it has an unwanted behaviour when resizing the window.
 //    m_proj.ortho(0.0f, GLfloat(w), 0.0f, h, 0.00f, 1.0f);
     m_proj.ortho(0.0f, 400.0f, 0.0f, 400.0f, 0.00f, 1.0f);
+    m_playerX->setProjection(m_proj);
     m_model.setToIdentity();
 //    The model matrix is used for moving and rotating our models around the screen.  We're currently not using it, I just left it here in case we need this later.
 //    m_model.translate(GLfloat(w) /2,h/2);

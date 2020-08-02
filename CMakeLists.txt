@@ -21,8 +21,10 @@ set(SOURCE_FILES
         src/glwidget.cpp
         src/mainwindow.cpp
         src/window.cpp
+        src/Player.cpp 
+        src/PlayerX.cpp 
         src/main.cpp
-)
+        )
 
 add_project_meta(META_FILES_TO_INCLUDE)
 

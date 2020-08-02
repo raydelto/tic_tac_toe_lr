@@ -4,6 +4,7 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 #include <QMatrix4x4>
+#include "PlayerX.h"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 
@@ -39,4 +40,5 @@ private:
     QMatrix4x4 m_proj;
     QMatrix4x4 m_model;
     uint32_t m_numVertices;
+    PlayerX* m_playerX;
 };
