@@ -38,4 +38,5 @@ private:
     GLuint m_modelMatrixLoc;
     QMatrix4x4 m_proj;
     QMatrix4x4 m_model;
+    uint32_t m_numVertices;
 };
