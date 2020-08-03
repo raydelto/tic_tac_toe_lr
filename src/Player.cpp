@@ -4,7 +4,7 @@ static const char *vertexShaderSource =
         R"""(
     #version 330 core
 
-    layout (location = 0) in vec3 aPos;
+    layout (location = 0) in vec2 aPos;
     layout (location = 1) in vec3 aColor;
 
     uniform mat4 model;
@@ -14,7 +14,7 @@ static const char *vertexShaderSource =
 
     void main()
     {
-        gl_Position = projection * model * vec4(aPos, 1.0);
+        gl_Position = projection * model * vec4(aPos, 0.0 , 1.0);
         vertexColor = aColor;
     }
 )""";
@@ -70,8 +70,8 @@ void Player::setupVertexAttribs()
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
     f->glEnableVertexAttribArray(1);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
-    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
+    f->glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), reinterpret_cast<void *>(2 * sizeof(GLfloat)));
     m_vbo.release();
 }
 

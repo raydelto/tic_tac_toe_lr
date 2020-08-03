@@ -13,14 +13,15 @@ void PlayerX::draw()
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
     m_program->setUniformValue(m_modelMatrixLoc, m_model);
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
-    f->glDrawArrays(GL_TRIANGLES, 0, m_numVertices);
+    f->glDrawArrays(GL_LINES, 0, m_numVertices);
     m_program->release();
 }
 
 void PlayerX::initBuffer()
 {
-    m_vertices <<  100.0f  << 100.0f << 0.0f << 1.0f << 0.0f << 0.0f;  //left
-    m_vertices <<  300.0f  << 100.0f << 0.0f << 0.0f << 1.0f << 0.0f;  //right
-    m_vertices <<  100.0f  <<  300.0f << 0.0f << 0.0f << 0.0f << 1.0f;  //top
-    m_numVertices = m_vertices.count() / 6; //Each vertex has six fields (x,y,z ; r,g,b);
+    m_vertices <<  0.0f  << 0.0f << 1.0f << 0.0f << 0.0f;  //lower left
+    m_vertices <<  100.0f  << 100.0f  << 0.0f << 1.0f << 0.0f;  //upper right
+    m_vertices <<  0.0f  <<  100.0f << 0.0f << 0.0f << 1.0f;  //upper left
+    m_vertices <<  100.0f  <<  0.0f << 0.0f << 0.0f << 1.0f;  //lower right
+    m_numVertices = m_vertices.count() / 5; //Each vertex has five fields (x,y ; r,g,b);
 }
