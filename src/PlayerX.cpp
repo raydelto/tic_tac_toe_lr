@@ -1,8 +1,6 @@
 #include "PlayerX.h"
 
-PlayerX::PlayerX()
-{
-}
+PlayerX::PlayerX() = default;
 
 void PlayerX::draw()
 {

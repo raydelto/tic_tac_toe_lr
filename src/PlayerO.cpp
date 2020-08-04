@@ -1,9 +1,7 @@
 #include "PlayerO.h"
 #include <cmath>
 
-PlayerO::PlayerO()
-{
-}
+PlayerO::PlayerO() = default;
 
 void PlayerO::draw()
 {
