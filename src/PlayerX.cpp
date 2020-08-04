@@ -11,9 +11,16 @@ void PlayerX::draw()
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
-    m_program->setUniformValue(m_modelMatrixLoc, m_model);
+
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
-    f->glDrawArrays(GL_LINES, 0, m_numVertices);
+    for(auto const &move: m_moves)
+    {
+        m_model.setToIdentity();
+        m_model.translate(move.row * ROW_PADDING, move.column * COL_PADDING);
+        m_program->setUniformValue(m_modelMatrixLoc, m_model);
+        f->glDrawArrays(GL_LINES, 0, m_numVertices);
+    }
+
     m_program->release();
 }
 

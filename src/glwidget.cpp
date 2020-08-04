@@ -45,6 +45,17 @@ void GLWidget::initializeGL()
     initializeOpenGLFunctions();
     glClearColor(0, 0, 0, 1);
     m_playerX->initialize();
+    m_playerX->play({0,0});
+    m_playerX->play({0,1});
+    m_playerX->play({0,2});
+
+    m_playerX->play({1,0});
+    m_playerX->play({1,1});
+    m_playerX->play({1,2});
+
+    m_playerX->play({2,0});
+    m_playerX->play({2,1});
+    m_playerX->play({2,2});
 }
 
 
