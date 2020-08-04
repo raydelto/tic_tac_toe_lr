@@ -2,7 +2,6 @@
 
 PlayerX::PlayerX()
 {
-    m_model.setToIdentity();
 }
 
 void PlayerX::draw()

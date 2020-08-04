@@ -3,7 +3,6 @@
 
 PlayerO::PlayerO()
 {
-    m_model.setToIdentity();
 }
 
 void PlayerO::draw()
