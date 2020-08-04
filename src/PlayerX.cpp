@@ -20,8 +20,8 @@ void PlayerX::draw()
 void PlayerX::initBuffer()
 {
     m_vertices <<  0.0f  << 0.0f << 1.0f << 0.0f << 0.0f;  //lower left
-    m_vertices <<  100.0f  << 100.0f  << 0.0f << 1.0f << 0.0f;  //upper right
-    m_vertices <<  0.0f  <<  100.0f << 0.0f << 0.0f << 1.0f;  //upper left
-    m_vertices <<  100.0f  <<  0.0f << 0.0f << 0.0f << 1.0f;  //lower right
+    m_vertices <<  100.0f  << 100.0f  << 1.0f << 0.0f << 0.0f;  //upper right
+    m_vertices <<  0.0f  <<  100.0f << 1.0f << 0.0f << 0.0f;  //upper left
+    m_vertices <<  100.0f  <<  0.0f << 1.0f << 0.0f << 0.0f;  //lower right
     m_numVertices = m_vertices.count() / 5; //Each vertex has five fields (x,y ; r,g,b);
 }
