@@ -73,13 +73,9 @@ void GLWidget::paintGL()
 void GLWidget::resizeGL(int w, int h)
 {
     m_proj.setToIdentity();
-//  This commented ortho would maintain aspect ratio.  It's commented out since it has an unwanted behaviour when resizing the window.
-//    m_proj.ortho(0.0f, GLfloat(w), 0.0f, h, 0.00f, 1.0f);
     m_proj.ortho(0.0f, 400.0f, 0.0f, 400.0f, 0.00f, 1.0f);
     m_playerX->setProjection(m_proj);
     m_playerO->setProjection(m_proj);
-//    The model matrix is used for moving and rotating our models around the screen.  We're currently not using it, I just left it here in case we need this later.
-//    m_model.translate(GLfloat(w) /2,h/2);
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
