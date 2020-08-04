@@ -5,6 +5,7 @@
 #include <QOpenGLBuffer>
 #include <QMatrix4x4>
 #include "PlayerX.h"
+#include "PlayerO.h"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 
@@ -34,4 +35,5 @@ private:
     QOpenGLShaderProgram *m_program;
     QMatrix4x4 m_proj;
     PlayerX* m_playerX;
+    PlayerO* m_playerO;
 };

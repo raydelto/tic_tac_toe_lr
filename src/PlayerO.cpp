@@ -1,11 +1,12 @@
-#include "PlayerX.h"
+#include "PlayerO.h"
+#include <cmath>
 
-PlayerX::PlayerX()
+PlayerO::PlayerO()
 {
     m_model.setToIdentity();
 }
 
-void PlayerX::draw()
+void PlayerO::draw()
 {
     assert(m_initialized);
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
@@ -18,17 +19,21 @@ void PlayerX::draw()
         m_model.setToIdentity();
         m_model.translate(move.row * ROW_PADDING, move.column * COL_PADDING);
         m_program->setUniformValue(m_modelMatrixLoc, m_model);
-        f->glDrawArrays(GL_LINES, 0, m_numVertices);
+        f->glDrawArrays(GL_LINE_STRIP, 0, m_numVertices);
     }
 
     m_program->release();
 }
 
-void PlayerX::initBuffer()
+void PlayerO::initBuffer()
 {
-    m_vertices <<  0.0f  << 0.0f << 1.0f << 0.0f << 0.0f;  //lower left
-    m_vertices <<  80.0f  << 80.0f  << 1.0f << 0.0f << 0.0f;  //upper right
-    m_vertices <<  0.0f  <<  80.0f << 1.0f << 0.0f << 0.0f;  //upper left
-    m_vertices <<  80.0f  <<  0.0f << 1.0f << 0.0f << 0.0f;  //lower right
+    double radius = 40.0f;
+
+    for(int i = 1 ; i <= 361; i++)
+    {
+        m_vertices << (float) (radius * ( cos(i * (M_PI /180) ))) << (float) ( radius * sin( i * (M_PI /180) )) + 42.0f;
+        m_vertices <<  0.0f << 1.0f << 0.0f;
+    }
+
     m_numVertices = m_vertices.count() / 5; //Each vertex has five fields (x,y ; r,g,b);
 }

@@ -42,8 +42,4 @@ protected:
     bool m_initialized;
     uint32_t m_numVertices;
     QVector<position> m_moves;
-    // How far is one play from other
-    const float ROW_PADDING = 150.0f;
-    const float COL_PADDING = 150.0f;
-
 };
