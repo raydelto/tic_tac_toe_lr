@@ -13,7 +13,7 @@ void PlayerX::draw()
     for(auto const &move: m_moves)
     {
         m_model.setToIdentity();
-        m_model.translate(move.row * ROW_PADDING, move.column * COL_PADDING);
+        m_model.translate(move.x() * ROW_PADDING, move.y() * COL_PADDING);
         m_program->setUniformValue(m_modelMatrixLoc, m_model);
         f->glDrawArrays(GL_LINES, 0, m_numVertices);
     }

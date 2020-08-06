@@ -14,7 +14,7 @@ void PlayerO::draw()
     for(auto const &move: m_moves)
     {
         m_model.setToIdentity();
-        m_model.translate(move.row * ROW_PADDING, move.column * COL_PADDING);
+        m_model.translate(move.x() * ROW_PADDING, move.y() * COL_PADDING);
         m_program->setUniformValue(m_modelMatrixLoc, m_model);
         f->glDrawArrays(GL_LINE_STRIP, 0, m_numVertices);
     }
@@ -28,7 +28,7 @@ void PlayerO::initBuffer()
 
     for(int i = 1 ; i <= 361; i++)
     {
-        m_vertices << (float) (radius * ( cos(i * (M_PI /180) ))) << (float) ( radius * sin( i * (M_PI /180) )) + 42.0f;
+        m_vertices << (float) (radius * ( cos(i * (M_PI /180) ))) + 42.0f << (float) ( radius * sin( i * (M_PI /180) )) + 42.0f;
         m_vertices <<  0.0f << 1.0f << 0.0f;
     }
 

@@ -8,13 +8,6 @@
 #include <QOpenGLShaderProgram>
 #include <QVector>
 
-//Stores which square in the board is occupied by the player
-struct position
-{
-    int row;
-    int column;
-};
-
 class Player
 {
 public:
@@ -23,8 +16,8 @@ public:
     const QMatrix4x4 &getMProj() const;
     void setProjection(const QMatrix4x4 &projection);
     virtual void draw() = 0;
-    const QVector<position> &getMoves() const { return m_moves; }
-    void play(const position &move) { m_moves << move; }
+    const QVector<QPoint> &getMoves() const { return m_moves; }
+    void play(const QPoint &move) { m_moves << move; }
 
 
 protected:
@@ -41,5 +34,5 @@ protected:
     QMatrix4x4 m_model;
     bool m_initialized;
     uint32_t m_numVertices;
-    QVector<position> m_moves;
+    QVector<QPoint> m_moves;
 };

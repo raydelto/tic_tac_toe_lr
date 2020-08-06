@@ -28,7 +28,6 @@ protected:
     void paintGL() override;
     void resizeGL(int width, int height) override;
     void mousePressEvent(QMouseEvent *event) override;
-    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     QOpenGLBuffer m_vbo;
@@ -36,4 +35,10 @@ private:
     QMatrix4x4 m_proj;
     PlayerX* m_playerX;
     PlayerO* m_playerO;
+    QSize m_screenSize;
+    const int CELL_WIDTH = 100;
+    const int CELL_HEIGHT = 100;
+    bool m_isXTurn = true;
+    QPoint translatePosition(QPoint original);
+
 };

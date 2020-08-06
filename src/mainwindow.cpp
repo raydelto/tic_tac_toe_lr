@@ -7,5 +7,5 @@
 MainWindow::MainWindow()
 {
     setCentralWidget(new Window(this));
+    setFixedSize(400,400);
 }
-

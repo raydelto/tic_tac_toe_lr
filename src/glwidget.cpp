@@ -49,17 +49,6 @@ void GLWidget::initializeGL()
     glClearColor(0, 0, 0, 1);
     m_playerX->initialize();
     m_playerO->initialize();
-    m_playerX->play({0,0});
-    m_playerX->play({0,1});
-    m_playerX->play({0,2});
-
-    m_playerO->play({1,0});
-    m_playerO->play({1,1});
-    m_playerO->play({1,2});
-
-    m_playerX->play({2,0});
-    m_playerX->play({2,1});
-    m_playerX->play({2,2});
 }
 
 
@@ -76,12 +65,37 @@ void GLWidget::resizeGL(int w, int h)
     m_proj.ortho(0.0f, 400.0f, 0.0f, 400.0f, 0.00f, 1.0f);
     m_playerX->setProjection(m_proj);
     m_playerO->setProjection(m_proj);
+    m_screenSize.setWidth(w);
+    m_screenSize.setHeight(h);
+
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
+    static const int SPACING = 400 / 3;
+    QPoint point = translatePosition({event->pos().x() / SPACING, event->pos().y() / SPACING });
+    Player* player = m_isXTurn ? static_cast<Player*>(m_playerX) : static_cast<Player*>(m_playerO);
+    player->play(point);
+    m_isXTurn = !m_isXTurn;
+    repaint();
+
 }
 
-void GLWidget::mouseMoveEvent(QMouseEvent *event)
+QPoint GLWidget::translatePosition(QPoint original)
 {
+    QPoint result = original;
+
+    switch(original.y())
+    {
+        case 0:
+            result.setY(2);
+        break;
+        case 1:
+            result.setY(1);
+        break;
+        case 2:
+            result.setY(0);
+        break;
+    }
+    return result;
 }
