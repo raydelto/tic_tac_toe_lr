@@ -21,7 +21,7 @@ set(SOURCE_FILES
         src/glwidget.cpp
         src/mainwindow.cpp
         src/window.cpp
-        src/Player.cpp
+        src/Drawable.cpp
         src/PlayerX.cpp
         src/PlayerO.cpp
         src/main.cpp

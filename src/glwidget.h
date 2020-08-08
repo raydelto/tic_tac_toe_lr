@@ -4,8 +4,8 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 #include <QMatrix4x4>
-#include "PlayerX.h"
-#include "PlayerO.h"
+class PlayerX;
+class PlayerO;
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 
@@ -36,8 +36,6 @@ private:
     PlayerX* m_playerX;
     PlayerO* m_playerO;
     QSize m_screenSize;
-    const int CELL_WIDTH = 100;
-    const int CELL_HEIGHT = 100;
     bool m_isXTurn = true;
     QPoint translatePosition(QPoint original);
 

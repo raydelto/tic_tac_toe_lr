@@ -8,11 +8,11 @@
 #include <QOpenGLShaderProgram>
 #include <QVector>
 
-class Player
+class Drawable
 {
 public:
     void initialize();
-    Player();
+    Drawable();
     const QMatrix4x4 &getMProj() const;
     void setProjection(const QMatrix4x4 &projection);
     virtual void draw() = 0;

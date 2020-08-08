@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Drawable.h"
 
 static const char *vertexShaderSource =
         R"""(
@@ -31,12 +31,12 @@ static const char *fragmentShaderSource =
     }
 )""";
 
-Player::Player(): m_initialized(false), m_numVertices(0)
+Drawable::Drawable(): m_initialized(false), m_numVertices(0)
 {
 }
 
 
-void Player::initialize()
+void Drawable::initialize()
 {
     m_program = new QOpenGLShaderProgram();
     m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
@@ -64,7 +64,7 @@ void Player::initialize()
 
 }
 
-void Player::setupVertexAttribs()
+void Drawable::setupVertexAttribs()
 {
     m_vbo.bind();
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
@@ -75,12 +75,12 @@ void Player::setupVertexAttribs()
     m_vbo.release();
 }
 
-const QMatrix4x4 &Player::getMProj() const
+const QMatrix4x4 &Drawable::getMProj() const
 {
     return m_proj;
 }
 
-void Player::setProjection(const QMatrix4x4 &projection)
+void Drawable::setProjection(const QMatrix4x4 &projection)
 {
     m_proj = projection;
 }

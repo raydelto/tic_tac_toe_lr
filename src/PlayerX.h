@@ -1,7 +1,7 @@
 #pragma once
-#include "Player.h"
+#include "Drawable.h"
 
-class PlayerX : public Player
+class PlayerX : public Drawable
 {
 public:
     PlayerX();

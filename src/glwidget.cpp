@@ -2,6 +2,8 @@
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
 #include <QCoreApplication>
+#include "PlayerX.h"
+#include "PlayerO.h"
 
 GLWidget::GLWidget(QWidget *parent)
         : QOpenGLWidget(parent),
@@ -74,7 +76,7 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
 {
     static const int SPACING = 400 / 3;
     QPoint point = translatePosition({event->pos().x() / SPACING, event->pos().y() / SPACING });
-    Player* player = m_isXTurn ? static_cast<Player*>(m_playerX) : static_cast<Player*>(m_playerO);
+    Drawable* player = m_isXTurn ? static_cast<Drawable*>(m_playerX) : static_cast<Drawable*>(m_playerO);
     player->play(point);
     m_isXTurn = !m_isXTurn;
     repaint();
