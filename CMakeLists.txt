@@ -25,6 +25,7 @@ set(SOURCE_FILES
         src/PlayerX.cpp
         src/PlayerO.cpp
         src/main.cpp
+        src/LogicHandler.cpp 
         )
 
 add_project_meta(META_FILES_TO_INCLUDE)

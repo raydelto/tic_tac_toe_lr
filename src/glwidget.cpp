@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include "PlayerX.h"
 #include "PlayerO.h"
+#include "LogicHandler.h"
 
 GLWidget::GLWidget(QWidget *parent)
         : QOpenGLWidget(parent),
@@ -11,6 +12,7 @@ GLWidget::GLWidget(QWidget *parent)
 {
     m_playerX = new PlayerX();
     m_playerO = new PlayerO();
+    m_logic = LogicHandler::getInstance();
 }
 
 GLWidget::~GLWidget()
@@ -76,11 +78,14 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
 {
     static const int SPACING = 400 / 3;
     QPoint point = translatePosition({event->pos().x() / SPACING, event->pos().y() / SPACING });
-    Drawable* player = m_isXTurn ? static_cast<Drawable*>(m_playerX) : static_cast<Drawable*>(m_playerO);
-    player->play(point);
-    m_isXTurn = !m_isXTurn;
-    repaint();
-
+    if(m_logic->getStatus(point) == tictactoelr::status::EMPTY)
+    {
+        Drawable* player = m_isXTurn ? static_cast<Drawable*>(m_playerX) : static_cast<Drawable*>(m_playerO);
+        player->play(point);
+        m_logic->play(point, m_isXTurn ? tictactoelr::status::X : tictactoelr::status::O);
+        m_isXTurn = !m_isXTurn;
+        repaint();
+    }
 }
 
 QPoint GLWidget::translatePosition(QPoint original)

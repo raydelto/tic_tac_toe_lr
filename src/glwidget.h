@@ -4,6 +4,9 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 #include <QMatrix4x4>
+#include <memory>
+
+class LogicHandler;
 class PlayerX;
 class PlayerO;
 
@@ -38,5 +41,6 @@ private:
     QSize m_screenSize;
     bool m_isXTurn = true;
     QPoint translatePosition(QPoint original);
+    std::shared_ptr<LogicHandler> m_logic;
 
 };
