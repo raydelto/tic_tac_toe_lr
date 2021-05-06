@@ -31,6 +31,9 @@ public:
     static std::shared_ptr<LogicHandler> getInstance();
     tictactoelr::gameStatus getGameStatus();
 
+    bool isXTurn() const { return m_isXTurn; }
+    void setXTurn(bool mIsXTurn) { m_isXTurn = mIsXTurn; }
+
 private:
     void initBoard();
     tictactoelr::gameStatus getTurn() const;
@@ -39,6 +42,7 @@ private:
     tictactoelr::cellStatus m_board[3][3];
     tictactoelr::gameStatus m_gameStatus;
     bool m_gameOver;
-
+    bool m_isXTurn;
+    tictactoelr::gameStatus checkWinner();
 
 };

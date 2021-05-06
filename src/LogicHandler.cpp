@@ -22,7 +22,8 @@ void LogicHandler::initBoard()
     }
 }
 
-LogicHandler::LogicHandler(): m_gameOver(false)
+LogicHandler::LogicHandler(): m_gameOver(false),
+                              m_isXTurn(true)
 {
     m_gameStatus = tictactoelr::gameStatus::X_TURN;
     initBoard();
@@ -38,11 +39,8 @@ void LogicHandler::play(QPoint location,  tictactoelr::cellStatus status)
 
 tictactoelr::gameStatus LogicHandler::getGameStatus()
 {
-    if(m_gameOver)
-    {
-        return m_gameStatus == tictactoelr::gameStatus::X_TURN ? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
-    }
-
+    tictactoelr::gameStatus gameStatus;
+    checkWinner();
     //vertical check
     for(int i = 0; i < 3; i++)
     {
@@ -57,10 +55,7 @@ tictactoelr::gameStatus LogicHandler::getGameStatus()
             }
             cell = m_board[i][j];
         }
-        if(m_gameOver)
-        {
-            return m_gameStatus == tictactoelr::gameStatus::X_TURN ? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
-        }
+        checkWinner();
     }
     return m_gameStatus = getTurn();
 }
@@ -76,6 +71,15 @@ tictactoelr::cellStatus LogicHandler::getStatus(QPoint location) const
 tictactoelr::gameStatus LogicHandler::getTurn() const
 {
     return m_gameStatus == tictactoelr::gameStatus::X_TURN ? tictactoelr::gameStatus::O_TURN : tictactoelr::gameStatus::X_TURN;
+}
+
+tictactoelr::gameStatus LogicHandler::checkWinner()
+{
+    if(m_gameOver)
+    {
+        return m_isXTurn? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
+    }
+    return m_isXTurn? tictactoelr::gameStatus::X_TURN : tictactoelr::gameStatus::O_TURN;
 }
 
 LogicHandler::~LogicHandler() = default;

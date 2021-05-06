@@ -98,6 +98,7 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
         }
 
         m_isXTurn = !m_isXTurn;
+        m_logic->setXTurn(m_isXTurn);
         repaint();
     }
 }
