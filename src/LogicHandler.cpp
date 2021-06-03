@@ -74,14 +74,10 @@ tictactoelr::gameStatus LogicHandler::getGameStatus()
         switch(status)
         {
             case tictactoelr::gameStatus::TIE:
-                std::cout << "TIE" << std::endl;
-                break;
-            case tictactoelr::gameStatus::X_WON:
-                std::cout << "X WON" << std::endl;
-                break;
             case tictactoelr::gameStatus::O_WON:
-                std::cout << "O WON" << std::endl;
-                break;
+            case tictactoelr::gameStatus::X_WON:
+                m_gameOver = true;
+                return status;
         }
     }
     return m_gameStatus = getTurn();

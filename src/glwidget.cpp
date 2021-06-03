@@ -77,8 +77,16 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
+    static unsigned short clickCount = 0;
+    tictactoelr::gameStatus gameStatus = m_logic->getGameStatus();
+    if(gameStatus == tictactoelr::gameStatus::X_WON || gameStatus == tictactoelr::gameStatus::O_WON || clickCount > 9)
+    {
+        return;
+    }
+    clickCount++;
+
 //    tictactoelr::gameStatus gameStatus = m_logic->getGameStatus();
-//    if(gameStatus == tictactoelr::gameStatus::X_WON || gameStatus == tictactoelr::gameStatus::O_WON)
+
 //    {
 //        QMessageBox::information(this,"Game over",(gameStatus == tictactoelr::gameStatus::X_WON ? "X" :"O") + QString(" has won the match"));
 //        return;
@@ -94,6 +102,11 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
         if(gameStatus == tictactoelr::gameStatus::X_WON || gameStatus == tictactoelr::gameStatus::O_WON)
         {
             QMessageBox::information(this,"Game over",(gameStatus == tictactoelr::gameStatus::X_WON ? "X" :"O") + QString(" has won the match"));
+            return;
+        }
+        if(clickCount == 9)
+        {
+            QMessageBox::information(this,"Game over", "It's a Tie!");
             return;
         }
 
