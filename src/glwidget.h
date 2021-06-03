@@ -42,5 +42,4 @@ private:
     bool m_isXTurn = true;
     QPoint translatePosition(QPoint original);
     std::shared_ptr<LogicHandler> m_logic;
-
 };

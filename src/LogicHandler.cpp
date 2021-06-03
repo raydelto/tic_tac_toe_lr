@@ -150,21 +150,24 @@ tictactoelr::gameStatus LogicHandler::checkWinner()
     {
         return m_isXTurn ? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
     }
-    else
+
+    //Diagonal (upper left to bottom right)
+    if(m_board[0][0] != tictactoelr::cellStatus::EMPTY && m_board[0][0] == m_board[1][1]  &&  m_board[1][1] == m_board[2][2]  )
+    {
+        return m_isXTurn ? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
+    }
+
+    //Diagonal (upper right to bottom left)
+
+    if(m_board[0][2] != tictactoelr::cellStatus::EMPTY &&  m_board[0][2] == m_board[1][1]  &&  m_board[1][1] == m_board[2][0]  )
+    {
+        return m_isXTurn ? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
+    }
+
+    if(!winner)
     {
         return m_isXTurn ? tictactoelr::gameStatus::X_TURN :tictactoelr::gameStatus::O_TURN;
     }
-
-
-
-    //Diagonal (upper left to bottom right)
-    //Diagonal (upper right to bottom left)
-
-    if(m_gameOver)
-    {
-        return tictactoelr::gameStatus::TIE;
-    }
-    return m_isXTurn? tictactoelr::gameStatus::X_TURN : tictactoelr::gameStatus::O_TURN;
 }
 
 LogicHandler::~LogicHandler() = default;

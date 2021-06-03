@@ -46,7 +46,6 @@ void GLWidget::cleanup()
     doneCurrent();
 }
 
-
 void GLWidget::initializeGL()
 {
     connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &GLWidget::cleanup);
@@ -55,7 +54,6 @@ void GLWidget::initializeGL()
     m_playerX->initialize();
     m_playerO->initialize();
 }
-
 
 void GLWidget::paintGL()
 {
@@ -72,7 +70,6 @@ void GLWidget::resizeGL(int w, int h)
     m_playerO->setProjection(m_proj);
     m_screenSize.setWidth(w);
     m_screenSize.setHeight(h);
-
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
@@ -85,12 +82,6 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
     }
     clickCount++;
 
-//    tictactoelr::gameStatus gameStatus = m_logic->getGameStatus();
-
-//    {
-//        QMessageBox::information(this,"Game over",(gameStatus == tictactoelr::gameStatus::X_WON ? "X" :"O") + QString(" has won the match"));
-//        return;
-//    }
     static const int SPACING = 400 / 3;
     QPoint point = translatePosition({event->pos().x() / SPACING, event->pos().y() / SPACING });
     if(m_logic->getStatus(point) == tictactoelr::cellStatus::EMPTY)
