@@ -23,25 +23,10 @@ void LogicHandler::initBoard()
     }
 }
 
-LogicHandler::LogicHandler(): m_gameOver(false),
-                              m_isXTurn(true)
+LogicHandler::LogicHandler(): m_isXTurn(true)
 {
     m_gameStatus = tictactoelr::gameStatus::X_TURN;
     initBoard();
-}
-
-void LogicHandler::printBoard()
-{
-    std::cout << "\n=====\n";
-    for(int i = 0; i < 3;i++)
-    {
-        for(int j = 0; j < 3;j++)
-        {
-            std::cout << int(m_board[i][j]) << "\t";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "\n-------";
 }
 
 void LogicHandler::play(QPoint location,  tictactoelr::cellStatus status)
@@ -54,31 +39,13 @@ void LogicHandler::play(QPoint location,  tictactoelr::cellStatus status)
 
 tictactoelr::gameStatus LogicHandler::getGameStatus()
 {
-    tictactoelr::gameStatus gameStatus;
-    checkWinner();
-    //vertical check
-    for(int i = 0; i < 3; i++)
+    tictactoelr::gameStatus status = checkWinner();
+    switch(status)
     {
-        m_gameOver = true;
-        tictactoelr::cellStatus cell = tictactoelr::cellStatus::EMPTY;
-        for(int j = 0; j < 3; j++)
-        {
-            if(m_board[i][j] == tictactoelr::cellStatus::EMPTY || (j != 0 && m_board[i][j] != cell))
-            {
-                m_gameOver = false;
-                continue;
-            }
-            cell = m_board[i][j];
-        }
-        tictactoelr::gameStatus status = checkWinner();
-        switch(status)
-        {
-            case tictactoelr::gameStatus::TIE:
-            case tictactoelr::gameStatus::O_WON:
-            case tictactoelr::gameStatus::X_WON:
-                m_gameOver = true;
-                return status;
-        }
+        case tictactoelr::gameStatus::TIE:
+        case tictactoelr::gameStatus::O_WON:
+        case tictactoelr::gameStatus::X_WON:
+            return status;
     }
     return m_gameStatus = getTurn();
 }
@@ -98,11 +65,13 @@ tictactoelr::gameStatus LogicHandler::getTurn() const
 
 tictactoelr::gameStatus LogicHandler::checkWinner()
 {
+    /*Please note that the board matrix is rotated in 90 degrees.
+     * Therefore Horizontal matrix validation checks if a player has won vertically and so on.
+    */
     tictactoelr::cellStatus status = tictactoelr::cellStatus::NONE;
     bool winner = true;
 
     //Horizontal
-
     for(size_t i = 0 ; i < 3; i++)
     {
         if(i == 0)
@@ -124,7 +93,6 @@ tictactoelr::gameStatus LogicHandler::checkWinner()
     }
 
     //Vertical
-
     for(size_t j = 0 ; j < 3; j++)
     {
         winner = true;

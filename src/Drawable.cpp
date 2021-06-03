@@ -35,6 +35,10 @@ Drawable::Drawable(): m_initialized(false), m_numVertices(0)
 {
 }
 
+Drawable::~Drawable()
+{
+    delete m_program;
+}
 
 void Drawable::initialize()
 {
@@ -61,7 +65,6 @@ void Drawable::initialize()
     setupVertexAttribs();
     m_program->release();
     m_initialized = true;
-
 }
 
 void Drawable::setupVertexAttribs()
@@ -73,11 +76,6 @@ void Drawable::setupVertexAttribs()
     f->glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
     f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), reinterpret_cast<void *>(2 * sizeof(GLfloat)));
     m_vbo.release();
-}
-
-const QMatrix4x4 &Drawable::getMProj() const
-{
-    return m_proj;
 }
 
 void Drawable::setProjection(const QMatrix4x4 &projection)

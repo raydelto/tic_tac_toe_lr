@@ -13,12 +13,10 @@ class Drawable
 public:
     void initialize();
     Drawable();
-    const QMatrix4x4 &getMProj() const;
+    ~Drawable();
     void setProjection(const QMatrix4x4 &projection);
     virtual void draw() = 0;
-    const QVector<QPoint> &getMoves() const { return m_moves; }
     void play(const QPoint &move) { m_moves << move; }
-
 
 protected:
     void setupVertexAttribs();
