@@ -6,6 +6,7 @@ namespace tictactoelr
 {
     enum class cellStatus
     {
+        NONE,
         EMPTY,
         X,
         O
@@ -44,5 +45,6 @@ private:
     bool m_gameOver;
     bool m_isXTurn;
     tictactoelr::gameStatus checkWinner();
+    void printBoard();
 
 };

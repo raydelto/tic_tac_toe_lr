@@ -1,4 +1,5 @@
 #include "LogicHandler.h"
+#include <iostream>
 
 std::shared_ptr<LogicHandler> LogicHandler::m_instance;
 
@@ -29,6 +30,20 @@ LogicHandler::LogicHandler(): m_gameOver(false),
     initBoard();
 }
 
+void LogicHandler::printBoard()
+{
+    std::cout << "\n=====\n";
+    for(int i = 0; i < 3;i++)
+    {
+        for(int j = 0; j < 3;j++)
+        {
+            std::cout << int(m_board[i][j]) << "\t";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "\n-------";
+}
+
 void LogicHandler::play(QPoint location,  tictactoelr::cellStatus status)
 {
     const int row = location.x();
@@ -55,7 +70,19 @@ tictactoelr::gameStatus LogicHandler::getGameStatus()
             }
             cell = m_board[i][j];
         }
-        checkWinner();
+        tictactoelr::gameStatus status = checkWinner();
+        switch(status)
+        {
+            case tictactoelr::gameStatus::TIE:
+                std::cout << "TIE" << std::endl;
+                break;
+            case tictactoelr::gameStatus::X_WON:
+                std::cout << "X WON" << std::endl;
+                break;
+            case tictactoelr::gameStatus::O_WON:
+                std::cout << "O WON" << std::endl;
+                break;
+        }
     }
     return m_gameStatus = getTurn();
 }
@@ -75,9 +102,71 @@ tictactoelr::gameStatus LogicHandler::getTurn() const
 
 tictactoelr::gameStatus LogicHandler::checkWinner()
 {
+    tictactoelr::cellStatus status = tictactoelr::cellStatus::NONE;
+    bool winner = true;
+
+    //Horizontal
+
+    for(size_t i = 0 ; i < 3; i++)
+    {
+        if(i == 0)
+        {
+            status = m_board[i][0];
+        }
+        for(size_t j = 0 ; j < 3; j++)
+        {
+            if(m_board[i][j] != status || m_board[i][j] == tictactoelr::cellStatus::EMPTY)
+            {
+                winner = false;
+                break;
+            }
+        }
+        if(winner)
+        {
+            return m_isXTurn ? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
+        }
+    }
+
+    //Vertical
+
+    for(size_t j = 0 ; j < 3; j++)
+    {
+        winner = true;
+        for(size_t i = 0 ; i < 3; i++)
+        {
+            if(i == 0)
+            {
+                status = m_board[i][j];
+            }
+
+            if(m_board[i][j] != status || m_board[i][j] == tictactoelr::cellStatus::EMPTY)
+            {
+                winner = false;
+                continue;
+            }
+        }
+        if(winner)
+        {
+            break;
+        }
+    }
+    if(winner)
+    {
+        return m_isXTurn ? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
+    }
+    else
+    {
+        return m_isXTurn ? tictactoelr::gameStatus::X_TURN :tictactoelr::gameStatus::O_TURN;
+    }
+
+
+
+    //Diagonal (upper left to bottom right)
+    //Diagonal (upper right to bottom left)
+
     if(m_gameOver)
     {
-        return m_isXTurn? tictactoelr::gameStatus::X_WON : tictactoelr::gameStatus::O_WON;
+        return tictactoelr::gameStatus::TIE;
     }
     return m_isXTurn? tictactoelr::gameStatus::X_TURN : tictactoelr::gameStatus::O_TURN;
 }

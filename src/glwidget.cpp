@@ -77,12 +77,12 @@ void GLWidget::resizeGL(int w, int h)
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
-    tictactoelr::gameStatus gameStatus = m_logic->getGameStatus();
-    if(gameStatus == tictactoelr::gameStatus::X_WON || gameStatus == tictactoelr::gameStatus::O_WON)
-    {
-        QMessageBox::information(this,"Game over",(gameStatus == tictactoelr::gameStatus::X_WON ? "X" :"O") + QString(" has won the match"));
-        return;
-    }
+//    tictactoelr::gameStatus gameStatus = m_logic->getGameStatus();
+//    if(gameStatus == tictactoelr::gameStatus::X_WON || gameStatus == tictactoelr::gameStatus::O_WON)
+//    {
+//        QMessageBox::information(this,"Game over",(gameStatus == tictactoelr::gameStatus::X_WON ? "X" :"O") + QString(" has won the match"));
+//        return;
+//    }
     static const int SPACING = 400 / 3;
     QPoint point = translatePosition({event->pos().x() / SPACING, event->pos().y() / SPACING });
     if(m_logic->getStatus(point) == tictactoelr::cellStatus::EMPTY)
@@ -90,7 +90,7 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
         Drawable* player = m_isXTurn ? static_cast<Drawable*>(m_playerX) : static_cast<Drawable*>(m_playerO);
         player->play(point);
         m_logic->play(point, m_isXTurn ? tictactoelr::cellStatus::X : tictactoelr::cellStatus::O);
-        gameStatus = m_logic->getGameStatus();
+        tictactoelr::gameStatus gameStatus = m_logic->getGameStatus();
         if(gameStatus == tictactoelr::gameStatus::X_WON || gameStatus == tictactoelr::gameStatus::O_WON)
         {
             QMessageBox::information(this,"Game over",(gameStatus == tictactoelr::gameStatus::X_WON ? "X" :"O") + QString(" has won the match"));
