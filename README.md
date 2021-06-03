@@ -20,3 +20,6 @@ The authors of this simple game are:
 
 * Raydelto Hernandez (raydelto@yahoo.com)
 * Leo Javier
+
+## Screenshot
+![TicTacToe LR Screenshot](sshot.png)
