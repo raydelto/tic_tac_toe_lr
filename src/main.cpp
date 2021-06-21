@@ -1,8 +1,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QSurfaceFormat>
-#include <QCommandLineParser>
-#include <QCommandLineOption>
 
 #include "glwidget.h"
 #include "mainwindow.h"

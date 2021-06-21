@@ -9,6 +9,13 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Include Qt basic functions
 include(QtCommon)
 
+# Include qt current directories in order to use promoted objects
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/modules/app)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/modules/cores)
+
+
+
 # Basic information about project
 
 project(tictactoelr VERSION 1.0)
@@ -25,15 +32,17 @@ set(SOURCE_FILES
         src/PlayerX.cpp
         src/PlayerO.cpp
         src/main.cpp
-        src/LogicHandler.cpp 
-        )
+        src/LogicHandler.cpp
+        src/GamePadListener.cpp)
 
 add_project_meta(META_FILES_TO_INCLUDE)
 
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Gamepad REQUIRED)
+
 
 add_executable(${PROJECT_NAME} ${OS_BUNDLE} # Expands to WIN32 or MACOS_BUNDLE depending on OS
     ${SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES}
 )
 
-qt5_use_modules(${PROJECT_NAME} Widgets)
+qt5_use_modules(${PROJECT_NAME} Widgets Gamepad)
