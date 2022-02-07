@@ -1,5 +1,4 @@
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QSurfaceFormat>
 #include <QCommandLineParser>
 #include <QCommandLineOption>
@@ -22,12 +21,6 @@ int main(int argc, char *argv[])
     mainWindow.setWindowTitle(QApplication::translate("MainWindow", "Tic Tac Toe LR v0.1", nullptr));
 
     mainWindow.resize(mainWindow.sizeHint());
-    int desktopArea = QApplication::desktop()->width() *
-                      QApplication::desktop()->height();
-    int widgetArea = mainWindow.width() * mainWindow.height();
-    if (((float)widgetArea / (float)desktopArea) < 0.75f)
-        mainWindow.show();
-    else
-        mainWindow.showMaximized();
+    mainWindow.show();
     return app.exec();
 }
