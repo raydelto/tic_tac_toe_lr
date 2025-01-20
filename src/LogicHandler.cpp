@@ -134,8 +134,10 @@ tictactoelr::gameStatus LogicHandler::checkWinner()
 
     if(!winner)
     {
-        return m_isXTurn ? tictactoelr::gameStatus::X_TURN :tictactoelr::gameStatus::O_TURN;
+        return m_isXTurn ? tictactoelr::gameStatus::X_TURN : tictactoelr::gameStatus::O_TURN;
     }
+
+    return tictactoelr::gameStatus::TIE;
 }
 
 LogicHandler::~LogicHandler() = default;
